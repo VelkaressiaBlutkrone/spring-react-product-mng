@@ -23,9 +23,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    // Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
     // DB & JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'com.mysql:mysql-connector-j' // MySQL 사용 시
+
+    // Logging (spring-boot-starter-logging에 이미 포함되어 있지만 명시적으로 추가 가능)
+    // implementation 'org.springframework.boot:spring-boot-starter-logging' // 기본 포함
 
     // Lombok
     compileOnly 'org.projectlombok:lombok'
@@ -33,6 +40,7 @@ dependencies {
 
     // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+    testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     // --- QueryDSL 설정 (Spring Boot 4.0.1 / Jakarta 기준) ---

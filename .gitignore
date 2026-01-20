@@ -48,6 +48,10 @@ application-local.properties
 application-*.properties
 !application.properties
 !application-common.properties
+!application-secret.properties.example
+# 민감한 정보가 포함된 설정 파일
+application-secret.properties
+**/application-secret.properties
 
 ### React / Node ###
 node_modules/
