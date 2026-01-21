@@ -91,8 +91,6 @@ spring-react-product-mng/
 - `front_end/tsconfig.app.json`: TypeScript 컴파일러 설정
 - `front_end/src/index.css`: 전역 스타일 및 Tailwind 설정
 
-## 📝 추가 정보
-
 ### API 엔드포인트
 
 #### 상품 API
