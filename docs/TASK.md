@@ -48,51 +48,51 @@
 
 ## 2단계: 핵심 기능 구현 (Phase 1)
 
-**상태**: ❌ 미완료
+**상태**: ✅ 완료
 
 ### 작업 내용
 PRD.md Phase 1에 해당하는 핵심 기능 구현
 
 #### 2-1. 서버: 상품 CRUD API 구현
-**상태**: ❌ 미완료
+**상태**: ✅ 완료
 
-- [ ] ProductController 구현 (POST, PUT, DELETE 엔드포인트)
-- [ ] ProdService 구현 (상품 추가, 수정, 삭제 비즈니스 로직)
-- [ ] ProdDto.Request/Response 구현
-- [ ] 상품 유효성 검증 로직 구현
-- [ ] 상품코드 유일성 검증
-- [ ] 연관 데이터 처리 (재고, 옵션, 가격 이력 등)
-- [ ] CORS 설정 확인 및 테스트
+- [x] ProductController 구현 (POST, PUT, DELETE 엔드포인트)
+- [x] ProdService 구현 (상품 추가, 수정, 삭제 비즈니스 로직)
+- [x] ProdDto.Request/Response 구현 및 Entity 변환 메서드 추가
+- [x] 상품 유효성 검증 로직 구현 (@Valid, @NotBlank 활용)
+- [x] 상품코드 유일성 검증 (existsByProductCode 메서드 활용)
+- [x] 연관 데이터 처리 (카테고리 조회 및 검증)
+- [x] CORS 설정 확인 (CorsConfig 확인 완료)
 
 #### 2-2. 서버: 상품 조회 API 구현 (검색, 페이징, 정렬)
-**상태**: ❌ 미완료
+**상태**: ✅ 완료
 
-- [ ] 상품 조회 API 엔드포인트 구현 (GET /api/products)
-- [ ] 검색 조건 처리 (상품명, 상품코드, 가격 범위)
-- [ ] QueryDSL을 활용한 동적 쿼리 구현
-- [ ] 페이징 처리 (Spring Data JPA Pageable)
-- [ ] 정렬 처리 (등록 날짜 기준 내림차순)
-- [ ] 가격 범위 검색 시 PriceHistory와의 조인 처리
+- [x] 상품 조회 API 엔드포인트 구현 (GET /api/products)
+- [x] 검색 조건 처리 (상품명, 상품코드, 가격 범위)
+- [x] QueryDSL을 활용한 동적 쿼리 구현 (ProductRepositoryImpl)
+- [x] 페이징 처리 (Spring Data JPA Pageable)
+- [x] 정렬 처리 (등록 날짜 기준 내림차순)
+- [x] 가격 범위 검색 시 PriceHistory와의 조인 처리 (유효한 가격만 조회)
 
 #### 2-3. 클라이언트: 기본 레이아웃 및 라우팅
-**상태**: ❌ 미완료
+**상태**: ✅ 완료
 
-- [ ] React Router 설정 (App.tsx)
-- [ ] 기본 레이아웃 컴포넌트 구현 (Header, Sidebar/하단 네비게이션, Footer)
-- [ ] 반응형 레이아웃 구현 (모바일/태블릿/데스크톱)
-- [ ] 라우트 설정 (메인, 목록, 통계, About)
-- [ ] 공통 스타일링 (Tailwind CSS)
+- [x] React Router 설정 (App.tsx)
+- [x] 기본 레이아웃 컴포넌트 구현 (Header, BottomNav, Layout)
+- [x] 반응형 레이아웃 구현 (모바일: 하단 네비게이션, 데스크톱: 상단 네비게이션)
+- [x] 라우트 설정 (메인, 목록, 통계, About)
+- [x] 공통 스타일링 (Tailwind CSS)
 
 #### 2-4. 클라이언트: 목록 화면 기본 구현
-**상태**: ❌ 미완료
+**상태**: ✅ 완료
 
-- [ ] ProductListPage 컴포넌트 구현
-- [ ] React Query를 활용한 상품 목록 조회
-- [ ] 검색 UI 구현 (상품명, 상품코드)
-- [ ] 가격 범위 필터 UI 구현
-- [ ] 페이징 UI 구현
-- [ ] 상품 목록 표시 (카드 또는 테이블 형태)
-- [ ] 로딩 상태 및 에러 처리
+- [x] ProductListPage 컴포넌트 구현
+- [x] React Query를 활용한 상품 목록 조회 (useQuery)
+- [x] 검색 UI 구현 (ProductSearch 컴포넌트: 상품명, 상품코드)
+- [x] 가격 범위 필터 UI 구현 (최소/최대 가격)
+- [x] 페이징 UI 구현 (Pagination 컴포넌트)
+- [x] 상품 목록 표시 (ProductCard 컴포넌트 - 카드 형태)
+- [x] 로딩 상태 및 에러 처리
 
 ---
 

@@ -11,6 +11,7 @@ public enum ErrorCode {
     PRODUCT_NOT_FOUND(HttpStatus.BAD_REQUEST, "PRODUCT_001", "상품을 찾을 수 없습니다."),
     CATEGORY_NOT_FOUND(HttpStatus.BAD_REQUEST, "PRODUCT_002", "카테고리를 찾을 수 없습니다."),
     INSUFFICIENT_STOCK(HttpStatus.BAD_REQUEST, "PRODUCT_003", "재고가 부족합니다."),
+    PRODUCT_CODE_DUPLICATE(HttpStatus.BAD_REQUEST, "PRODUCT_004", "이미 존재하는 상품코드입니다."),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "SERVER_001", "서버 내부 오류가 발생했습니다.");
 
     /** HTTP 상태 코드 */
