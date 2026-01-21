@@ -1,26 +1,11 @@
 /**
  * 토스트 메시지 컨테이너 컴포넌트
  */
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
-import { Toast, ToastType } from './Toast';
-
-interface ToastContextType {
-  showToast: (message: string, type: ToastType, duration?: number) => void;
-  showSuccess: (message: string) => void;
-  showError: (message: string) => void;
-  showInfo: (message: string) => void;
-  showWarning: (message: string) => void;
-}
-
-const ToastContext = createContext<ToastContextType | undefined>(undefined);
-
-export const useToast = () => {
-  const context = useContext(ToastContext);
-  if (!context) {
-    throw new Error('useToast must be used within ToastProvider');
-  }
-  return context;
-};
+import { useState, useCallback } from 'react';
+import type { ReactNode } from 'react';
+import { Toast } from './Toast';
+import type { ToastType } from './Toast';
+import { ToastContext } from './ToastContext';
 
 interface ToastContainerProps {
   children: ReactNode;

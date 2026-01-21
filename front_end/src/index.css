@@ -63,6 +63,33 @@
     @apply px-3 py-1 rounded-full text-xs font-medium;
     @apply inline-flex items-center;
   }
+
+  /* Materio 스타일 통계 카드 */
+  .stat-card-materio {
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100;
+    @apply p-6 transition-all duration-300;
+    @apply hover:shadow-lg hover:-translate-y-1;
+    @apply relative overflow-hidden;
+  }
+
+  .stat-card-materio::before {
+    content: '';
+    @apply absolute top-0 right-0 w-32 h-32 rounded-full opacity-10;
+    @apply transform translate-x-8 -translate-y-8;
+  }
+
+  /* 트렌드 표시 */
+  .trend-up {
+    @apply text-green-600 flex items-center gap-1;
+  }
+
+  .trend-down {
+    @apply text-red-600 flex items-center gap-1;
+  }
+
+  .trend-neutral {
+    @apply text-gray-500 flex items-center gap-1;
+  }
 }
 
 /* 모바일 최적화 */

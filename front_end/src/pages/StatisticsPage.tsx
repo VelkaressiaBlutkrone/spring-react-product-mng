@@ -9,7 +9,7 @@ import { getWeekRange, getMonthRange, getQuarterRange, getYearRange, toISOString
 import { EmptyState } from '@/components/common/EmptyState';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
 import { Pagination } from '@/components/common/Pagination';
-import { useToast } from '@/components/common/ToastContainer';
+import { useToast } from '@/components/common/useToast';
 import { getErrorMessage } from '@/utils/errorHandler';
 
 type PeriodType = 'week' | 'month' | 'quarter' | 'year' | 'custom';
@@ -248,19 +248,51 @@ export const StatisticsPage = () => {
         </div>
       </div>
 
-      {/* 통계 요약 카드 */}
+      {/* 통계 요약 카드 - Materio 스타일 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-        <div className="card-imweb p-5 sm:p-6 bg-gradient-to-br from-green-50 to-white">
-          <h3 className="text-sm font-medium text-gray-600 mb-3">총 추가 건수</h3>
-          <p className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">{stats.createCount}</p>
+        {/* 추가 건수 카드 */}
+        <div className="stat-card-materio bg-gradient-to-br from-green-50 via-green-50/50 to-white before:bg-green-500">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-green-100">
+              <span className="text-2xl">✅</span>
+            </div>
+            <span className="text-xs font-medium text-green-600 bg-green-100 px-2 py-1 rounded-full">추가</span>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-600 mb-2">총 추가 건수</h3>
+            <p className="text-3xl sm:text-4xl font-bold text-gray-900 mb-1">{stats.createCount}</p>
+            <p className="text-xs text-gray-500">상품 생성</p>
+          </div>
         </div>
-        <div className="card-imweb p-5 sm:p-6 bg-gradient-to-br from-blue-50 to-white">
-          <h3 className="text-sm font-medium text-gray-600 mb-3">총 수정 건수</h3>
-          <p className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">{stats.updateCount}</p>
+
+        {/* 수정 건수 카드 */}
+        <div className="stat-card-materio bg-gradient-to-br from-blue-50 via-blue-50/50 to-white before:bg-blue-500">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100">
+              <span className="text-2xl">✏️</span>
+            </div>
+            <span className="text-xs font-medium text-blue-600 bg-blue-100 px-2 py-1 rounded-full">수정</span>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-600 mb-2">총 수정 건수</h3>
+            <p className="text-3xl sm:text-4xl font-bold text-gray-900 mb-1">{stats.updateCount}</p>
+            <p className="text-xs text-gray-500">정보 변경</p>
+          </div>
         </div>
-        <div className="card-imweb p-5 sm:p-6 sm:col-span-2 md:col-span-1 bg-gradient-to-br from-red-50 to-white">
-          <h3 className="text-sm font-medium text-gray-600 mb-3">총 삭제 건수</h3>
-          <p className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">{stats.deleteCount}</p>
+
+        {/* 삭제 건수 카드 */}
+        <div className="stat-card-materio sm:col-span-2 md:col-span-1 bg-gradient-to-br from-red-50 via-red-50/50 to-white before:bg-red-500">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-red-100">
+              <span className="text-2xl">🗑️</span>
+            </div>
+            <span className="text-xs font-medium text-red-600 bg-red-100 px-2 py-1 rounded-full">삭제</span>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-600 mb-2">총 삭제 건수</h3>
+            <p className="text-3xl sm:text-4xl font-bold text-gray-900 mb-1">{stats.deleteCount}</p>
+            <p className="text-xs text-gray-500">상품 삭제</p>
+          </div>
         </div>
       </div>
 

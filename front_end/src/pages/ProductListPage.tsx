@@ -13,7 +13,7 @@ import { Modal } from '@/components/common/Modal';
 import { ConfirmDialog } from '@/components/common/ConfirmDialog';
 import { EmptyState } from '@/components/common/EmptyState';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
-import { useToast } from '@/components/common/ToastContainer';
+import { useToast } from '@/components/common/useToast';
 import { getErrorMessage } from '@/utils/errorHandler';
 
 export const ProductListPage = () => {

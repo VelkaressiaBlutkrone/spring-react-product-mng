@@ -7,7 +7,7 @@ import { getProducts } from '@/services/api/productApi';
 import { formatDate, getRelativeTime } from '@/utils/dateUtils';
 import { EmptyState } from '@/components/common/EmptyState';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
-import { useToast } from '@/components/common/ToastContainer';
+import { useToast } from '@/components/common/useToast';
 import { getErrorMessage } from '@/utils/errorHandler';
 
 export const HomePage = () => {
@@ -29,23 +29,53 @@ export const HomePage = () => {
         <p className="text-gray-500 text-sm sm:text-base">상품 관리 현황을 한눈에 확인하세요</p>
       </div>
 
-      {/* 대시보드 위젯 */}
+      {/* 대시보드 위젯 - Materio 스타일 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-        <div className="card-imweb p-5 sm:p-6 bg-gradient-to-br from-blue-50 to-white">
-          <h3 className="text-sm font-medium text-gray-600 mb-3">전체 상품 수</h3>
-          <p className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">
-            {recentProducts?.totalElements || 0}
-          </p>
+        {/* 전체 상품 수 카드 */}
+        <div className="stat-card-materio bg-gradient-to-br from-blue-50 via-blue-50/50 to-white before:bg-blue-500">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100">
+              <span className="text-2xl">📦</span>
+            </div>
+            <span className="text-xs font-medium text-blue-600 bg-blue-100 px-2 py-1 rounded-full">전체</span>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-600 mb-2">전체 상품 수</h3>
+            <p className="text-3xl sm:text-4xl font-bold text-gray-900 mb-1">
+              {recentProducts?.totalElements || 0}
+            </p>
+            <p className="text-xs text-gray-500">등록된 상품</p>
+          </div>
         </div>
-        <div className="card-imweb p-5 sm:p-6 bg-gradient-to-br from-green-50 to-white">
-          <h3 className="text-sm font-medium text-gray-600 mb-3">오늘 추가된 상품</h3>
-          <p className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">-</p>
-          <p className="text-xs text-gray-400 mt-2">(변경 이력 기능 구현 필요)</p>
+
+        {/* 오늘 추가된 상품 카드 */}
+        <div className="stat-card-materio bg-gradient-to-br from-green-50 via-green-50/50 to-white before:bg-green-500">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-green-100">
+              <span className="text-2xl">➕</span>
+            </div>
+            <span className="text-xs font-medium text-green-600 bg-green-100 px-2 py-1 rounded-full">오늘</span>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-600 mb-2">오늘 추가된 상품</h3>
+            <p className="text-3xl sm:text-4xl font-bold text-gray-900 mb-1">-</p>
+            <p className="text-xs text-gray-500">(변경 이력 기능 구현 필요)</p>
+          </div>
         </div>
-        <div className="card-imweb p-5 sm:p-6 sm:col-span-2 md:col-span-1 bg-gradient-to-br from-purple-50 to-white">
-          <h3 className="text-sm font-medium text-gray-600 mb-3">이번 주 변경된 상품</h3>
-          <p className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-purple-500 bg-clip-text text-transparent">-</p>
-          <p className="text-xs text-gray-400 mt-2">(변경 이력 기능 구현 필요)</p>
+
+        {/* 이번 주 변경된 상품 카드 */}
+        <div className="stat-card-materio sm:col-span-2 md:col-span-1 bg-gradient-to-br from-purple-50 via-purple-50/50 to-white before:bg-purple-500">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-purple-100">
+              <span className="text-2xl">📊</span>
+            </div>
+            <span className="text-xs font-medium text-purple-600 bg-purple-100 px-2 py-1 rounded-full">이번 주</span>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-600 mb-2">이번 주 변경된 상품</h3>
+            <p className="text-3xl sm:text-4xl font-bold text-gray-900 mb-1">-</p>
+            <p className="text-xs text-gray-500">(변경 이력 기능 구현 필요)</p>
+          </div>
         </div>
       </div>
 
