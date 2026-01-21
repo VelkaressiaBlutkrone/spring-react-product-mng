@@ -75,6 +75,58 @@ spring-react-product-mng/
 - **API 통신**: RESTful API, Axios
 - **상태 관리**: React Query (서버 상태), Zustand (클라이언트 상태)
 
+## 🔧 주요 설정 파일
+
+### 백엔드
+
+- `build.gradle`: Gradle 빌드 설정 및 의존성 관리
+- `src/main/resources/application.properties`: 애플리케이션 설정
+- `src/main/resources/logback-spring.xml`: 로깅 설정
+- `src/test/resources/application.properties`: 테스트 환경 설정
+
+### 프론트엔드
+
+- `front_end/package.json`: npm 패키지 및 스크립트
+- `front_end/vite.config.ts`: Vite 빌드 설정
+- `front_end/tsconfig.app.json`: TypeScript 컴파일러 설정
+- `front_end/src/index.css`: 전역 스타일 및 Tailwind 설정
+
+## 📝 추가 정보
+
+### API 엔드포인트
+
+#### 상품 API
+
+- `GET /api/products` - 상품 목록 조회 (검색, 페이징, 정렬)
+- `GET /api/products/{id}` - 상품 상세 조회
+- `POST /api/products` - 상품 추가
+- `PUT /api/products/{id}` - 상품 수정
+- `DELETE /api/products/{id}` - 상품 삭제
+
+#### 변경 이력 API
+
+- `GET /api/change-logs` - 변경 이력 목록 조회 (필터링 지원)
+- `GET /api/change-logs/recent` - 최근 변경 이력 조회
+
+### 주요 Entity
+
+- **Product**: 상품 정보
+- **Category**: 상품 카테고리
+- **ProductChangeLog**: 상품 변경 이력
+- **Inventory**: 재고 정보 (향후 확장)
+- **ProductOption**: 상품 옵션 (향후 확장)
+- **PriceHistory**: 가격 이력 (향후 확장)
+
+### 주요 기능
+
+- ✅ 상품 CRUD 기능
+- ✅ 상품 검색 및 페이징
+- ✅ 변경 이력 추적
+- ✅ 통계 화면 (기간별 변경 이력)
+- ✅ 반응형 디자인
+- ✅ 에러 처리 및 사용자 피드백
+- ✅ 로깅 기능 (AOP 기반)
+
 ## 🛠️ 프로젝트 기술 구조
 
 ### 백엔드 (Backend)
@@ -280,58 +332,6 @@ npm run build
 - [React Router 공식 문서](https://reactrouter.com)
 - [React Hook Form 공식 문서](https://react-hook-form.com)
 - [Zod 공식 문서](https://zod.dev)
-
-## 🔧 주요 설정 파일
-
-### 백엔드
-
-- `build.gradle`: Gradle 빌드 설정 및 의존성 관리
-- `src/main/resources/application.properties`: 애플리케이션 설정
-- `src/main/resources/logback-spring.xml`: 로깅 설정
-- `src/test/resources/application.properties`: 테스트 환경 설정
-
-### 프론트엔드
-
-- `front_end/package.json`: npm 패키지 및 스크립트
-- `front_end/vite.config.ts`: Vite 빌드 설정
-- `front_end/tsconfig.app.json`: TypeScript 컴파일러 설정
-- `front_end/src/index.css`: 전역 스타일 및 Tailwind 설정
-
-## 📝 추가 정보
-
-### API 엔드포인트
-
-#### 상품 API
-
-- `GET /api/products` - 상품 목록 조회 (검색, 페이징, 정렬)
-- `GET /api/products/{id}` - 상품 상세 조회
-- `POST /api/products` - 상품 추가
-- `PUT /api/products/{id}` - 상품 수정
-- `DELETE /api/products/{id}` - 상품 삭제
-
-#### 변경 이력 API
-
-- `GET /api/change-logs` - 변경 이력 목록 조회 (필터링 지원)
-- `GET /api/change-logs/recent` - 최근 변경 이력 조회
-
-### 주요 Entity
-
-- **Product**: 상품 정보
-- **Category**: 상품 카테고리
-- **ProductChangeLog**: 상품 변경 이력
-- **Inventory**: 재고 정보 (향후 확장)
-- **ProductOption**: 상품 옵션 (향후 확장)
-- **PriceHistory**: 가격 이력 (향후 확장)
-
-### 주요 기능
-
-- ✅ 상품 CRUD 기능
-- ✅ 상품 검색 및 페이징
-- ✅ 변경 이력 추적
-- ✅ 통계 화면 (기간별 변경 이력)
-- ✅ 반응형 디자인
-- ✅ 에러 처리 및 사용자 피드백
-- ✅ 로깅 기능 (AOP 기반)
 
 ---
 
