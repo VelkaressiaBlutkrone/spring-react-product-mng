@@ -106,3 +106,41 @@ export const getMonthRange = (date: Date = new Date()): { start: Date; end: Date
   
   return { start, end };
 };
+
+/**
+ * 분기 시작일과 종료일 반환
+ */
+export const getQuarterRange = (date: Date = new Date()): { start: Date; end: Date } => {
+  const d = new Date(date);
+  const quarter = Math.floor(d.getMonth() / 3); // 0: Q1, 1: Q2, 2: Q3, 3: Q4
+  
+  const start = new Date(d.getFullYear(), quarter * 3, 1);
+  start.setHours(0, 0, 0, 0);
+  
+  const end = new Date(d.getFullYear(), (quarter + 1) * 3, 0);
+  end.setHours(23, 59, 59, 999);
+  
+  return { start, end };
+};
+
+/**
+ * 연간 시작일과 종료일 반환
+ */
+export const getYearRange = (date: Date = new Date()): { start: Date; end: Date } => {
+  const d = new Date(date);
+  
+  const start = new Date(d.getFullYear(), 0, 1);
+  start.setHours(0, 0, 0, 0);
+  
+  const end = new Date(d.getFullYear(), 11, 31);
+  end.setHours(23, 59, 59, 999);
+  
+  return { start, end };
+};
+
+/**
+ * Date를 ISO 8601 형식 문자열로 변환 (API 호출용)
+ */
+export const toISOString = (date: Date): string => {
+  return date.toISOString();
+};

@@ -28,6 +28,7 @@ public class ProdService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final ChangeLogService changeLogService;
 
     /**
      * 상품 목록 조회 - 검색 조건 및 페이징 처리
@@ -84,6 +85,10 @@ public class ProdService {
                 .build();
 
         Product savedProduct = productRepository.save(product);
+        
+        // 변경 이력 저장
+        changeLogService.saveCreateLog(savedProduct, "SYSTEM");
+        
         log.info("상품 추가 완료 - productId: {}", savedProduct.getProductId());
         
         return ProdDto.Response.from(savedProduct);
@@ -100,6 +105,12 @@ public class ProdService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PRODUCT_NOT_FOUND));
 
+        // 수정 전 상품 정보 저장 (변경 이력용)
+        String oldProductName = product.getProductName();
+        String oldDescription = product.getDescription();
+        String oldCategoryName = product.getCategory() != null ? product.getCategory().getCategoryName() : null;
+        ProductStatus oldStatus = product.getStatus();
+
         // 카테고리 조회
         Category category = null;
         if (request.getCategoryId() != null) {
@@ -109,6 +120,9 @@ public class ProdService {
 
         // 상품 정보 수정 (상품코드는 수정 불가)
         product.update(request.getProductName(), request.getDescription(), category, request.getStatus());
+
+        // 변경 이력 저장
+        changeLogService.saveUpdateLog(product, oldProductName, oldDescription, oldCategoryName, oldStatus, "SYSTEM");
         
         log.info("상품 수정 완료 - productId: {}", productId);
         return ProdDto.Response.from(product);
@@ -124,6 +138,9 @@ public class ProdService {
         
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PRODUCT_NOT_FOUND));
+
+        // 변경 이력 저장 (삭제 전)
+        changeLogService.saveDeleteLog(product, "SYSTEM");
 
         // 연관 데이터 확인 (재고, 옵션, 가격 이력 등)
         // 현재는 단순 삭제, 필요시 Soft Delete나 Cascade 처리 고려

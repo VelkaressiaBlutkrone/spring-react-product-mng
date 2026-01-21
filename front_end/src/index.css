@@ -1,68 +1,73 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* 터치 최적화 */
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
   }
-  a:hover {
-    color: #747bff;
+  
+  button, a {
+    touch-action: manipulation;
   }
-  button {
-    background-color: #f9f9f9;
+
+  body {
+    @apply bg-gradient-to-br from-gray-50 via-white to-gray-50;
+  }
+}
+
+/* 아임웹 스타일 커스텀 클래스 */
+@layer components {
+  /* 카드 스타일 - 부드러운 그림자와 호버 효과 */
+  .card-imweb {
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100;
+    @apply transition-all duration-300 ease-in-out;
+    @apply hover:shadow-lg hover:-translate-y-1;
+  }
+
+  /* 버튼 스타일 - 그라데이션과 부드러운 효과 */
+  .btn-primary-imweb {
+    @apply bg-gradient-to-r from-blue-500 to-blue-600 text-white;
+    @apply px-6 py-3 rounded-xl font-medium;
+    @apply shadow-md hover:shadow-lg;
+    @apply transition-all duration-300 ease-in-out;
+    @apply hover:from-blue-600 hover:to-blue-700;
+    @apply active:scale-95;
+  }
+
+  .btn-secondary-imweb {
+    @apply bg-white text-gray-700 border border-gray-200;
+    @apply px-6 py-3 rounded-xl font-medium;
+    @apply hover:bg-gray-50 hover:border-gray-300;
+    @apply transition-all duration-300 ease-in-out;
+    @apply active:scale-95;
+  }
+
+  /* 입력 필드 스타일 */
+  .input-imweb {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+    @apply transition-all duration-200 ease-in-out;
+    @apply bg-white;
+  }
+
+  /* 섹션 타이틀 */
+  .section-title {
+    @apply text-3xl font-bold text-gray-900 mb-2;
+    @apply bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent;
+  }
+
+  /* 배지 스타일 */
+  .badge-imweb {
+    @apply px-3 py-1 rounded-full text-xs font-medium;
+    @apply inline-flex items-center;
+  }
+}
+
+/* 모바일 최적화 */
+@media (max-width: 640px) {
+  html {
+    -webkit-text-size-adjust: 100%;
   }
 }

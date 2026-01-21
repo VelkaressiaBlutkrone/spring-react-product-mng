@@ -6,11 +6,14 @@ export const AboutPage = () => {
   const buildDate = new Date().toLocaleDateString('ko-KR');
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900">About</h1>
+    <div className="space-y-6 sm:space-y-8">
+      <div>
+        <h1 className="section-title text-2xl sm:text-3xl">About</h1>
+        <p className="text-gray-500 text-sm sm:text-base">시스템 정보 및 연락처</p>
+      </div>
 
       {/* 시스템 정보 */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="card-imweb p-5 sm:p-6">
         <h2 className="text-xl font-semibold mb-4 text-gray-900">시스템 정보</h2>
         <div className="space-y-3 text-gray-600">
           <div>
@@ -29,7 +32,7 @@ export const AboutPage = () => {
       </div>
 
       {/* 기술 스택 */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="card-imweb p-5 sm:p-6">
         <h2 className="text-xl font-semibold mb-4 text-gray-900">기술 스택</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -58,7 +61,7 @@ export const AboutPage = () => {
       </div>
 
       {/* 연락 정보 */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="card-imweb p-5 sm:p-6">
         <h2 className="text-xl font-semibold mb-4 text-gray-900">연락 정보</h2>
         <div className="space-y-3 text-gray-600">
           <div>
@@ -89,7 +92,7 @@ export const AboutPage = () => {
       </div>
 
       {/* 기타 정보 */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="card-imweb p-5 sm:p-6">
         <h2 className="text-xl font-semibold mb-4 text-gray-900">기타 정보</h2>
         <div className="space-y-3 text-gray-600 text-sm">
           <div>

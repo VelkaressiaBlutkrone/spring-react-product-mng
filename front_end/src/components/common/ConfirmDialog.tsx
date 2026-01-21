@@ -31,23 +31,23 @@ export const ConfirmDialog = ({
 
   const confirmButtonClass =
     variant === 'danger'
-      ? 'bg-red-600 hover:bg-red-700'
-      : 'bg-blue-600 hover:bg-blue-700';
+      ? 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700'
+      : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700';
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} size="sm">
-      <div className="space-y-4">
+      <div className="space-y-5">
         <p className="text-gray-700">{message}</p>
-        <div className="flex justify-end gap-2">
+        <div className="flex justify-end gap-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+            className="btn-secondary-imweb min-h-[44px] touch-manipulation"
           >
             {cancelText}
           </button>
           <button
             onClick={handleConfirm}
-            className={`px-4 py-2 rounded-md text-white ${confirmButtonClass}`}
+            className={`min-h-[44px] px-6 py-3 rounded-xl font-medium text-white shadow-md hover:shadow-lg transition-all duration-300 active:scale-95 touch-manipulation ${confirmButtonClass}`}
           >
             {confirmText}
           </button>

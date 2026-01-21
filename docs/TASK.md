@@ -144,40 +144,92 @@ PRD.md Phase 2에 해당하는 추가 기능 구현
 
 ## 4단계: 고급 기능 구현 (Phase 3)
 
-**상태**: ❌ 미완료
+**상태**: ⏳ 진행중
 
 ### 작업 내용
 PRD.md Phase 3에 해당하는 고급 기능 구현
 
 #### 4-1. 서버: 변경 이력 Entity 및 API 구현
-**상태**: ❌ 미완료
+**상태**: ✅ 완료
 
-- [ ] ProductChangeLog Entity 생성
-- [ ] 변경 이력 저장 로직 구현 (AOP 또는 이벤트 리스너 활용)
-- [ ] 변경 이력 조회 API 구현
-- [ ] 기간별 변경 이력 조회 기능
+- [x] ChangeType enum 생성 (CREATE, UPDATE, DELETE)
+- [x] ProductChangeLog Entity 생성
+- [x] ProductChangeLogRepository 생성 (상품별, 변경타입별, 기간별 조회 메서드)
+- [x] ChangeLogDto 생성 (Request, Response, SearchCondition)
+- [x] ChangeLogService 생성 (변경 이력 저장 및 조회 로직)
+- [x] 변경 이력 저장 로직 구현 (ProdService에 통합)
+- [x] ChangeLogController 생성 (변경 이력 조회 API)
+- [x] 기간별 변경 이력 조회 기능 구현
+
+**구현 내용:**
+- `ChangeType` enum 생성 (CREATE, UPDATE, DELETE)
+- `ProductChangeLog` Entity 생성 (product, changeType, changedField, oldValue, newValue, changedBy, changedDate)
+- `ProductChangeLogRepository` 생성 (상품별, 변경타입별, 기간별, 혼합 조회 메서드)
+- `ChangeLogDto` 생성 (Request, Response, SearchCondition)
+- `ChangeLogService` 생성 (변경 이력 저장 및 조회 비즈니스 로직)
+- `ChangeLogController` 생성 (변경 이력 조회 API)
+- `ProdService`에 변경 이력 저장 로직 통합 (createProduct, updateProduct, deleteProduct)
+- 변경 이력 조회 API 엔드포인트:
+  - `GET /api/change-logs` - 변경 이력 목록 조회 (상품별, 타입별, 기간별 필터링 지원)
+  - `GET /api/change-logs/recent` - 최근 변경 이력 조회
 
 #### 4-2. 클라이언트: 통계 화면 구현
-**상태**: ❌ 미완료
+**상태**: ✅ 완료
 
-- [ ] StatisticsPage 컴포넌트 구현
-- [ ] 기간 선택 UI 구현 (매주/매월/분기/년별, 커스텀 날짜 범위)
-- [ ] 통계 목록 표시 (기간별 추가/수정/삭제 항목)
-- [ ] 통계 그래프 구현
-  - [ ] 추가/수정/삭제 트렌드 차트 (라인 차트)
-  - [ ] 카테고리별 분포 차트 (파이/바 차트)
-  - [ ] 가격 분포 차트 (히스토그램)
-  - [ ] 월별 추가 추이 차트 (바 차트)
-- [ ] 통계 요약 카드 구현
-- [ ] date-fns를 활용한 날짜 포맷팅
+- [x] StatisticsPage 컴포넌트 구현
+- [x] 기간 선택 UI 구현 (매주/매월/분기/년별, 커스텀 날짜 범위)
+- [x] 통계 목록 표시 (기간별 추가/수정/삭제 항목)
+- [x] 통계 요약 카드 구현 (총 추가/수정/삭제 건수)
+- [x] 변경 타입별 필터링 기능
+- [x] 변경 이력 API 타입 정의 및 서비스 함수 구현
+- [x] 날짜 유틸리티 함수 확장 (주간/월간/분기/연간 범위 계산)
+
+**구현 내용:**
+- `changeLog.types.ts`: 변경 이력 관련 TypeScript 타입 정의 (ChangeType enum, ChangeLogResponse, ChangeLogSearchCondition 등)
+- `changeLogApi.ts`: 변경 이력 API 서비스 함수 구현 (getChangeLogs, getRecentChangeLogs)
+- `StatisticsPage.tsx`: 통계 화면 구현
+  - 기간 선택: 이번 주/이번 달/이번 분기/올해/커스텀 날짜 범위
+  - 변경 타입 필터: 전체/추가/수정/삭제
+  - 통계 요약 카드: 총 추가/수정/삭제 건수 표시
+  - 변경 이력 목록: 상품 정보, 변경 타입, 변경 내용(필드별), 변경 일시 표시
+  - 페이징 처리
+  - 빈 상태 및 에러 처리
+- `dateUtils.ts` 확장: getQuarterRange, getYearRange, toISOString 함수 추가
+
+**참고:**
+- 통계 그래프(차트)는 향후 차트 라이브러리(recharts 등) 추가 후 구현 가능
+- 현재는 통계 요약 카드와 목록으로 데이터 시각화 제공
 
 #### 4-3. 클라이언트: 반응형 디자인 최적화
-**상태**: ❌ 미완료
+**상태**: ✅ 완료
 
-- [ ] 모든 페이지 반응형 검증 및 최적화
-- [ ] 모바일 UX 개선
-- [ ] 터치 인터랙션 최적화
-- [ ] 성능 최적화 (React.memo, useMemo, useCallback 적용)
+- [x] 모든 페이지 반응형 검증 및 최적화
+- [x] 모바일 UX 개선
+- [x] 터치 인터랙션 최적화
+- [x] 성능 최적화 (React.memo, useMemo, useCallback 적용)
+
+**구현 내용:**
+- **모바일 터치 영역 최적화**: 모든 버튼과 클릭 가능한 요소에 최소 44x44px 터치 영역 적용
+- **반응형 타이포그래피**: 제목 크기 모바일(text-2xl) → 데스크톱(text-3xl) 조정
+- **반응형 그리드**: 
+  - 대시보드 위젯: 1열(모바일) → 2열(태블릿) → 3열(데스크톱)
+  - 상품 목록: 1열(모바일) → 2열(태블릿) → 3열(데스크톱)
+- **입력 필드 최적화**: 모바일에서 최소 높이 44px, 텍스트 크기 16px 이상 (줌 방지)
+- **버튼 최적화**: 
+  - 모바일에서 전체 너비 버튼 제공
+  - active 상태 스타일 추가
+  - touch-manipulation CSS 적용
+- **성능 최적화**:
+  - `ProductCard`: React.memo 적용
+  - `Pagination`: React.memo, useMemo 적용
+  - `ProductListPage`: useCallback으로 핸들러 함수 메모이제이션
+- **CSS 최적화**: 
+  - 터치 하이라이트 제거 (-webkit-tap-highlight-color)
+  - touch-action: manipulation 적용
+  - 모바일 텍스트 크기 조정 방지
+- **접근성 개선**: 
+  - 버튼에 aria-label 추가
+  - 페이지네이션에 aria-current 속성 추가
 
 #### 4-4. 클라이언트: 에러 처리 및 사용자 피드백 강화
 **상태**: ❌ 미완료

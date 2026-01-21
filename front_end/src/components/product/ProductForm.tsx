@@ -50,57 +50,57 @@ export const ProductForm = ({ product, onSubmit, onCancel, isLoading }: ProductF
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-5">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-gray-700 mb-2">
           상품코드 <span className="text-red-500">*</span>
         </label>
         <input
           type="text"
           {...register('productCode')}
           disabled={!!product} // 수정 시 상품코드 변경 불가
-          className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-            errors.productCode ? 'border-red-500' : 'border-gray-300'
-          } ${product ? 'bg-gray-100' : ''}`}
+          className={`input-imweb min-h-[44px] ${
+            errors.productCode ? 'border-red-400 focus:ring-red-400' : ''
+          } ${product ? 'bg-gray-50' : ''}`}
           placeholder="상품코드를 입력하세요"
         />
         {errors.productCode && (
-          <p className="mt-1 text-sm text-red-600">{errors.productCode.message}</p>
+          <p className="mt-2 text-sm text-red-600">{errors.productCode.message}</p>
         )}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-gray-700 mb-2">
           상품명 <span className="text-red-500">*</span>
         </label>
         <input
           type="text"
           {...register('productName')}
-          className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-            errors.productName ? 'border-red-500' : 'border-gray-300'
+          className={`input-imweb min-h-[44px] ${
+            errors.productName ? 'border-red-400 focus:ring-red-400' : ''
           }`}
           placeholder="상품명을 입력하세요"
         />
         {errors.productName && (
-          <p className="mt-1 text-sm text-red-600">{errors.productName.message}</p>
+          <p className="mt-2 text-sm text-red-600">{errors.productName.message}</p>
         )}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">설명</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">설명</label>
         <textarea
           {...register('description')}
           rows={4}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="input-imweb resize-none"
           placeholder="상품 설명을 입력하세요"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">상태</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">상태</label>
         <select
           {...register('status')}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="input-imweb min-h-[44px]"
         >
           <option value={ProductStatus.ACTIVE}>활성</option>
           <option value={ProductStatus.INACTIVE}>비활성</option>
@@ -108,18 +108,18 @@ export const ProductForm = ({ product, onSubmit, onCancel, isLoading }: ProductF
         </select>
       </div>
 
-      <div className="flex justify-end gap-2 pt-4">
+      <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
         <button
           type="button"
           onClick={onCancel}
-          className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+          className="btn-secondary-imweb min-h-[44px] touch-manipulation"
           disabled={isLoading}
         >
           취소
         </button>
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+          className="btn-primary-imweb min-h-[44px] touch-manipulation disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={isLoading}
         >
           {isLoading ? '처리 중...' : product ? '수정' : '등록'}

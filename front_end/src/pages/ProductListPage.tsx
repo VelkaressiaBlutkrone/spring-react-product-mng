@@ -1,7 +1,7 @@
 /**
  * 상품 목록 페이지
  */
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getProducts, createProduct, updateProduct, deleteProduct, getProduct } from '@/services/api/productApi';
 import type { ProductSearchCondition, ProductRequest, ProductResponse } from '@/types/product.types';
@@ -11,6 +11,7 @@ import { Pagination } from '@/components/common/Pagination';
 import { ProductForm } from '@/components/product/ProductForm';
 import { Modal } from '@/components/common/Modal';
 import { ConfirmDialog } from '@/components/common/ConfirmDialog';
+import { EmptyState } from '@/components/common/EmptyState';
 
 export const ProductListPage = () => {
   const [page, setPage] = useState(0);
@@ -55,54 +56,87 @@ export const ProductListPage = () => {
     },
   });
 
-  const handleSearch = (condition: ProductSearchCondition) => {
+  const handleSearch = useCallback((condition: ProductSearchCondition) => {
     setSearchCondition(condition);
     setPage(0);
-  };
+  }, []);
 
-  const handleAddProduct = async (data: ProductRequest) => {
+  const handleAddProduct = useCallback(async (data: ProductRequest) => {
     await createMutation.mutateAsync(data);
-  };
+  }, [createMutation]);
 
-  const handleEditProduct = async (data: ProductRequest) => {
+  const handleEditProduct = useCallback(async (data: ProductRequest) => {
     if (editingProduct) {
       await updateMutation.mutateAsync({ id: editingProduct.productId, data });
     }
-  };
+  }, [editingProduct, updateMutation]);
 
-  const handleDeleteProduct = async (productId: number) => {
+  const handleDeleteProduct = useCallback(async (productId: number) => {
     await deleteMutation.mutateAsync(productId);
-  };
+  }, [deleteMutation]);
 
-  const handleProductClick = async (product: ProductResponse) => {
+  const handleProductClick = useCallback(async (product: ProductResponse) => {
     // 상세 조회 로직 (나중에 구현)
     const productDetail = await getProduct(product.productId);
     setEditingProduct(productDetail);
-  };
+  }, []);
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="text-gray-600">로딩 중...</div>
+      <div className="space-y-6">
+        <div className="flex justify-between items-center">
+          <h1 className="text-3xl font-bold text-gray-900">상품 목록</h1>
+          <button
+            onClick={() => setIsAddModalOpen(true)}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+          >
+            새로 추가
+          </button>
+        </div>
+        <ProductSearch onSearch={handleSearch} />
+        <div className="flex justify-center items-center h-64 bg-white rounded-lg shadow">
+          <div className="text-gray-600">로딩 중...</div>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="text-red-600">에러가 발생했습니다.</div>
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <h1 className="section-title text-2xl sm:text-3xl">상품 목록</h1>
+            <p className="text-gray-500 text-sm sm:text-base mt-1">상품을 검색하고 관리하세요</p>
+          </div>
+          <button
+            onClick={() => setIsAddModalOpen(true)}
+            className="btn-primary-imweb w-full sm:w-auto min-h-[44px] touch-manipulation"
+          >
+            새로 추가
+          </button>
+        </div>
+        <ProductSearch onSearch={handleSearch} />
+        <div className="mt-6 bg-white rounded-lg shadow">
+          <EmptyState
+            title="데이터를 불러올 수 없습니다"
+            message="상품 목록을 불러오는 중 오류가 발생했습니다. 페이지를 새로고침하거나 다시 시도해주세요."
+          />
+        </div>
       </div>
     );
   }
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">상품 목록</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div>
+          <h1 className="section-title text-2xl sm:text-3xl">상품 목록</h1>
+          <p className="text-gray-500 text-sm sm:text-base mt-1">상품을 검색하고 관리하세요</p>
+        </div>
         <button
           onClick={() => setIsAddModalOpen(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+          className="btn-primary-imweb w-full sm:w-auto min-h-[44px] touch-manipulation"
         >
           새로 추가
         </button>
@@ -112,28 +146,43 @@ export const ProductListPage = () => {
 
       {data && (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            {data.content.map((product) => (
-              <ProductCard
-                key={product.productId}
-                product={product}
-                onClick={handleProductClick}
-              />
-            ))}
-          </div>
+          {data.content.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                {data.content.map((product) => (
+                  <ProductCard
+                    key={product.productId}
+                    product={product}
+                    onClick={handleProductClick}
+                  />
+                ))}
+              </div>
 
-          {data.content.length === 0 && (
-            <div className="text-center py-12 text-gray-500">
-              상품이 없습니다.
+              <Pagination
+                currentPage={page}
+                totalPages={data.totalPages}
+                totalElements={data.totalElements}
+                onPageChange={setPage}
+              />
+            </>
+          ) : (
+            <div className="mt-6 card-imweb">
+              <EmptyState
+                title="등록된 상품이 없습니다"
+                message={searchCondition.productName || searchCondition.productCode || searchCondition.minPrice !== undefined || searchCondition.maxPrice !== undefined
+                  ? "검색 조건에 맞는 상품이 없습니다. 다른 검색 조건을 시도해보세요."
+                  : "아직 등록된 상품이 없습니다. 첫 상품을 추가해보세요."}
+                action={
+                  <button
+                    onClick={() => setIsAddModalOpen(true)}
+                    className="btn-primary-imweb touch-manipulation"
+                  >
+                    상품 추가하기
+                  </button>
+                }
+              />
             </div>
           )}
-
-          <Pagination
-            currentPage={page}
-            totalPages={data.totalPages}
-            totalElements={data.totalElements}
-            onPageChange={setPage}
-          />
         </>
       )}
 
@@ -166,10 +215,10 @@ export const ProductListPage = () => {
               onCancel={() => setEditingProduct(null)}
               isLoading={updateMutation.isPending}
             />
-            <div className="pt-4 border-t">
+            <div className="pt-4 border-t border-gray-100">
               <button
                 onClick={() => setDeletingProductId(editingProduct.productId)}
-                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                className="min-h-[44px] px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-red-700 shadow-md hover:shadow-lg transition-all duration-300 active:scale-95 touch-manipulation"
               >
                 삭제
               </button>

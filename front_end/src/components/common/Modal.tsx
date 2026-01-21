@@ -34,25 +34,25 @@ export const Modal = ({ isOpen, onClose, title, children, size = 'md' }: ModalPr
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* 배경 오버레이 */}
       <div
-        className="absolute inset-0 bg-black bg-opacity-50"
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
         onClick={onClose}
       />
 
       {/* 모달 컨텐츠 */}
       <div
-        className={`relative bg-white rounded-lg shadow-xl ${sizeClasses[size]} w-full mx-4 max-h-[90vh] overflow-y-auto`}
+        className={`relative bg-white rounded-2xl shadow-2xl ${sizeClasses[size]} w-full max-h-[90vh] overflow-y-auto`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* 헤더 */}
         {title && (
-          <div className="flex justify-between items-center p-6 border-b border-gray-200">
+          <div className="flex justify-between items-center p-5 sm:p-6 border-b border-gray-100">
             <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
+              className="text-gray-400 hover:text-gray-600 text-2xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
             >
               ×
             </button>
@@ -60,7 +60,7 @@ export const Modal = ({ isOpen, onClose, title, children, size = 'md' }: ModalPr
         )}
 
         {/* 바디 */}
-        <div className="p-6">{children}</div>
+        <div className="p-5 sm:p-6">{children}</div>
       </div>
     </div>
   );
