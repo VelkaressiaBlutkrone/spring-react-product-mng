@@ -12,7 +12,7 @@
 
 ## 1단계: 프로젝트 초기 설정 및 구조 구성
 
-**상태**: ❌ 미완료
+**상태**: ✅ 완료
 
 ### 작업 내용
 - 프로젝트 전체 구조 파악
@@ -23,20 +23,26 @@
   - 프론트엔드: `front_end` 폴더 내 구조 생성 (components, pages, hooks, services, stores, types, utils)
 
 ### 세부 작업
-- [ ] 백엔드 build.gradle 의존성 확인 및 Spring Boot 4.0.1 호환성 검증
-- [ ] 프론트엔드 package.json 패키지 확인 및 추가 패키지 설치 (통계용 차트 라이브러리 등, 필요 시)
-- [ ] 프론트엔드 폴더 구조 생성 (RULE.md 권장 구조 기준)
-  - [ ] `src/components/common/` 생성
-  - [ ] `src/components/layout/` 생성
-  - [ ] `src/components/product/` 생성
-  - [ ] `src/pages/` 생성
-  - [ ] `src/hooks/` 생성
-  - [ ] `src/services/api/` 생성
-  - [ ] `src/stores/` 생성
-  - [ ] `src/types/` 생성
-  - [ ] `src/utils/` 생성
-- [ ] 기본 TypeScript 타입 정의 파일 생성
-- [ ] 기본 유틸리티 함수 파일 생성
+- [x] 백엔드 build.gradle 의존성 확인 및 Spring Boot 4.0.1 호환성 검증
+- [x] 프론트엔드 package.json 패키지 확인 및 추가 패키지 설치 (통계용 차트 라이브러리 등, 필요 시)
+  - 현재 설치된 패키지로 기본 기능 구현 가능 확인
+  - 통계 화면 구현 시 recharts 또는 date-fns 추가 설치 예정
+- [x] 프론트엔드 폴더 구조 생성 (RULE.md 권장 구조 기준)
+  - [x] `src/components/common/` 생성
+  - [x] `src/components/layout/` 생성
+  - [x] `src/components/product/` 생성
+  - [x] `src/pages/` 생성
+  - [x] `src/hooks/` 생성
+  - [x] `src/services/api/` 생성
+  - [x] `src/stores/` 생성
+  - [x] `src/types/` 생성
+  - [x] `src/utils/` 생성
+- [x] 기본 TypeScript 타입 정의 파일 생성
+  - `src/types/product.types.ts`: 상품 관련 타입 정의
+  - `src/types/common.types.ts`: 공통 타입 정의
+- [x] 기본 유틸리티 함수 파일 생성
+  - `src/utils/dateUtils.ts`: 날짜/시간 관련 유틸리티
+  - `src/utils/formatters.ts`: 데이터 포맷팅 유틸리티
 
 ---
 
