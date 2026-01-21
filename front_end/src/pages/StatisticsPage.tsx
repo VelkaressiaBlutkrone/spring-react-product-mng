@@ -7,7 +7,10 @@ import { getChangeLogs } from '@/services/api/changeLogApi';
 import type { ChangeLogSearchCondition, ChangeType } from '@/types/changeLog.types';
 import { getWeekRange, getMonthRange, getQuarterRange, getYearRange, toISOString, formatDate } from '@/utils/dateUtils';
 import { EmptyState } from '@/components/common/EmptyState';
+import { LoadingSpinner } from '@/components/common/LoadingSpinner';
 import { Pagination } from '@/components/common/Pagination';
+import { useToast } from '@/components/common/ToastContainer';
+import { getErrorMessage } from '@/utils/errorHandler';
 
 type PeriodType = 'week' | 'month' | 'quarter' | 'year' | 'custom';
 
@@ -63,10 +66,15 @@ export const StatisticsPage = () => {
     changeType: selectedChangeType !== 'ALL' ? selectedChangeType : undefined,
   };
 
+  const { showError } = useToast();
+
   // 변경 이력 조회
   const { data: changeLogs, isLoading, error } = useQuery({
     queryKey: ['changeLogs', searchCondition, page, size],
     queryFn: () => getChangeLogs(searchCondition, { page, size }),
+    onError: (error) => {
+      showError(getErrorMessage(error));
+    },
   });
 
   // 통계 요약 계산
@@ -264,7 +272,7 @@ export const StatisticsPage = () => {
         <div className="p-5 sm:p-6">
           {isLoading ? (
             <div className="flex justify-center items-center py-12">
-              <div className="text-gray-500">로딩 중...</div>
+              <LoadingSpinner message="로딩 중..." />
             </div>
           ) : error ? (
             <EmptyState

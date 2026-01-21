@@ -6,12 +6,20 @@ import { Link } from 'react-router-dom';
 import { getProducts } from '@/services/api/productApi';
 import { formatDate, getRelativeTime } from '@/utils/dateUtils';
 import { EmptyState } from '@/components/common/EmptyState';
+import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { useToast } from '@/components/common/ToastContainer';
+import { getErrorMessage } from '@/utils/errorHandler';
 
 export const HomePage = () => {
+  const { showError } = useToast();
+
   // 최근 추가된 상품 조회 (최근 10개)
   const { data: recentProducts, isLoading, error } = useQuery({
     queryKey: ['products', 0, 10, {}],
     queryFn: () => getProducts({}, { page: 0, size: 10 }),
+    onError: (error) => {
+      showError(getErrorMessage(error));
+    },
   });
 
   return (
@@ -57,7 +65,7 @@ export const HomePage = () => {
         <div className="p-5 sm:p-6">
           {isLoading ? (
             <div className="flex justify-center items-center py-12">
-              <div className="text-gray-500">로딩 중...</div>
+              <LoadingSpinner message="로딩 중..." />
             </div>
           ) : error ? (
             <EmptyState

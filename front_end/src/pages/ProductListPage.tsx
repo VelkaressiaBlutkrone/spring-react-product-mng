@@ -12,6 +12,9 @@ import { ProductForm } from '@/components/product/ProductForm';
 import { Modal } from '@/components/common/Modal';
 import { ConfirmDialog } from '@/components/common/ConfirmDialog';
 import { EmptyState } from '@/components/common/EmptyState';
+import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { useToast } from '@/components/common/ToastContainer';
+import { getErrorMessage } from '@/utils/errorHandler';
 
 export const ProductListPage = () => {
   const [page, setPage] = useState(0);
@@ -22,10 +25,14 @@ export const ProductListPage = () => {
   const [deletingProductId, setDeletingProductId] = useState<number | null>(null);
 
   const queryClient = useQueryClient();
+  const { showSuccess, showError } = useToast();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['products', page, size, searchCondition],
     queryFn: () => getProducts(searchCondition, { page, size }),
+    onError: (error) => {
+      showError(getErrorMessage(error));
+    },
   });
 
   // 상품 추가 Mutation
@@ -34,6 +41,10 @@ export const ProductListPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] });
       setIsAddModalOpen(false);
+      showSuccess('상품이 성공적으로 추가되었습니다.');
+    },
+    onError: (error) => {
+      showError(getErrorMessage(error));
     },
   });
 
@@ -44,6 +55,10 @@ export const ProductListPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] });
       setEditingProduct(null);
+      showSuccess('상품이 성공적으로 수정되었습니다.');
+    },
+    onError: (error) => {
+      showError(getErrorMessage(error));
     },
   });
 
@@ -53,6 +68,10 @@ export const ProductListPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] });
       setDeletingProductId(null);
+      showSuccess('상품이 성공적으로 삭제되었습니다.');
+    },
+    onError: (error) => {
+      showError(getErrorMessage(error));
     },
   });
 
@@ -83,19 +102,22 @@ export const ProductListPage = () => {
 
   if (isLoading) {
     return (
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-gray-900">상품 목록</h1>
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <h1 className="section-title text-2xl sm:text-3xl">상품 목록</h1>
+            <p className="text-gray-500 text-sm sm:text-base mt-1">상품을 검색하고 관리하세요</p>
+          </div>
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            className="btn-primary-imweb w-full sm:w-auto min-h-[44px] touch-manipulation"
           >
             새로 추가
           </button>
         </div>
         <ProductSearch onSearch={handleSearch} />
-        <div className="flex justify-center items-center h-64 bg-white rounded-lg shadow">
-          <div className="text-gray-600">로딩 중...</div>
+        <div className="flex justify-center items-center h-64 card-imweb">
+          <LoadingSpinner message="로딩 중..." />
         </div>
       </div>
     );
