@@ -61,7 +61,9 @@ spring-react-product-mng/
 │   ├── PRD.md                    # 제품 요구사항 문서
 │   ├── RULE.md                   # 개발 규칙 및 가이드라인
 │   ├── TASK.md                   # 작업 목록 및 진행 상황
-│   └── TROUBLESHOOTING.md        # 문제 해결 가이드
+│   ├── TROUBLESHOOTING.md        # 문제 해결 가이드
+│   ├── FRONTEND_MODULES.md       # 프론트엔드 재사용 모듈 가이드
+│   └── BACKEND_MODULES.md        # 백엔드 재사용 모듈 가이드
 ├── build.gradle                  # Gradle 빌드 설정
 ├── settings.gradle               # Gradle 프로젝트 설정
 └── README.md                     # 프로젝트 소개 문서
@@ -311,6 +313,18 @@ npm run build
   - 런타임 오류 해결 방법
   - 설정 및 구성 가이드
   - 문제 해결 이력
+
+- **[FRONTEND_MODULES.md](docs/FRONTEND_MODULES.md)**: 프론트엔드 재사용 모듈 가이드
+  - 공통 컴포넌트 (Modal, Toast, Pagination 등)
+  - 유틸리티 함수 (날짜, 포맷터, 에러 처리)
+  - 커스텀 훅 및 타입 정의
+  - 재사용 가이드라인
+
+- **[BACKEND_MODULES.md](docs/BACKEND_MODULES.md)**: 백엔드 재사용 모듈 가이드
+  - 전역 설정 (CORS, Security, QueryDSL, Gson)
+  - AOP 로깅 (@Logging 어노테이션)
+  - 예외 처리 체계 (ErrorCode, BusinessException)
+  - 기본 엔티티 및 DTO 패턴
 
 ## 📖 참고 문서
 
