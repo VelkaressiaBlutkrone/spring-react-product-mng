@@ -1,14 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 /* 터치 최적화 */
 @layer base {
   * {
     -webkit-tap-highlight-color: transparent;
   }
-  
-  button, a {
+
+  button,
+  a {
     touch-action: manipulation;
   }
 
@@ -19,6 +18,7 @@
 
 /* 아임웹 스타일 커스텀 클래스 */
 @layer components {
+
   /* 카드 스타일 - 부드러운 그림자와 호버 효과 */
   .card-imweb {
     @apply bg-white rounded-2xl shadow-sm border border-gray-100;
