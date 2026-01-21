@@ -4,7 +4,8 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { ProductRequest, ProductResponse, ProductStatus } from '../../types/product.types';
+import type { ProductRequest, ProductResponse } from '@/types/product.types';
+import { ProductStatus } from '@/types/product.types';
 
 // 상품 폼 스키마
 const productFormSchema = z.object({

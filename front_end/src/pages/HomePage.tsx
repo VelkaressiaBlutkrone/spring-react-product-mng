@@ -3,8 +3,8 @@
  */
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { getProducts } from '../services/api/productApi';
-import { formatDate, getRelativeTime } from '../utils/dateUtils';
+import { getProducts } from '@/services/api/productApi';
+import { formatDate, getRelativeTime } from '@/utils/dateUtils';
 
 export const HomePage = () => {
   // 최근 추가된 상품 조회 (최근 10개)

@@ -2,7 +2,7 @@
  * 상품 검색 컴포넌트
  */
 import { useState } from 'react';
-import { ProductSearchCondition } from '../../types/product.types';
+import type { ProductSearchCondition } from '@/types/product.types';
 
 interface ProductSearchProps {
   onSearch: (condition: ProductSearchCondition) => void;

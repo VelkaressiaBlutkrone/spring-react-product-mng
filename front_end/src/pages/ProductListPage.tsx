@@ -3,14 +3,14 @@
  */
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getProducts, createProduct, updateProduct, deleteProduct, getProduct } from '../services/api/productApi';
-import { ProductSearchCondition, ProductRequest, ProductResponse } from '../types/product.types';
-import { ProductCard } from '../components/product/ProductCard';
-import { ProductSearch } from '../components/product/ProductSearch';
-import { Pagination } from '../components/common/Pagination';
-import { ProductForm } from '../components/product/ProductForm';
-import { Modal } from '../components/common/Modal';
-import { ConfirmDialog } from '../components/common/ConfirmDialog';
+import { getProducts, createProduct, updateProduct, deleteProduct, getProduct } from '@/services/api/productApi';
+import type { ProductSearchCondition, ProductRequest, ProductResponse } from '@/types/product.types';
+import { ProductCard } from '@/components/product/ProductCard';
+import { ProductSearch } from '@/components/product/ProductSearch';
+import { Pagination } from '@/components/common/Pagination';
+import { ProductForm } from '@/components/product/ProductForm';
+import { Modal } from '@/components/common/Modal';
+import { ConfirmDialog } from '@/components/common/ConfirmDialog';
 
 export const ProductListPage = () => {
   const [page, setPage] = useState(0);

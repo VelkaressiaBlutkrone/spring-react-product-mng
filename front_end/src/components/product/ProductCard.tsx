@@ -1,9 +1,9 @@
 /**
  * 상품 카드 컴포넌트
  */
-import { ProductResponse } from '../../types/product.types';
-import { formatPrice } from '../../utils/formatters';
-import { formatDate } from '../../utils/dateUtils';
+import type { ProductResponse } from '@/types/product.types';
+import { formatPrice } from '@/utils/formatters';
+import { formatDate } from '@/utils/dateUtils';
 
 interface ProductCardProps {
   product: ProductResponse;

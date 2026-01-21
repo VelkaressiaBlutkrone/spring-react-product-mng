@@ -3,11 +3,11 @@
  */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Layout } from './components/layout/Layout';
-import { HomePage } from './pages/HomePage';
-import { ProductListPage } from './pages/ProductListPage';
-import { StatisticsPage } from './pages/StatisticsPage';
-import { AboutPage } from './pages/AboutPage';
+import { Layout } from '@/components/layout/Layout';
+import { HomePage } from '@/pages/HomePage';
+import { ProductListPage } from '@/pages/ProductListPage';
+import { StatisticsPage } from '@/pages/StatisticsPage';
+import { AboutPage } from '@/pages/AboutPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
