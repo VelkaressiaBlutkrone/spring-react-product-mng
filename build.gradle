@@ -22,6 +22,12 @@ dependencies {
     // Web
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    
+    // JSON (Gson 사용)
+    implementation 'com.google.code.gson:gson'
+
+    // AOP (Spring Boot 4.0에서는 spring-boot-starter-aspectj로 변경됨)
+    implementation 'org.springframework.boot:spring-boot-starter-aspectj'
 
     // Security
     implementation 'org.springframework.boot:spring-boot-starter-security'

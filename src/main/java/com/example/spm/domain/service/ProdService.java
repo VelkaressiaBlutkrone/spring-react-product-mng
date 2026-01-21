@@ -32,6 +32,7 @@ public class ProdService {
     /**
      * 상품 목록 조회 - 검색 조건 및 페이징 처리
      */
+    @com.example.spm.global.annotation.Logging(level = com.example.spm.global.annotation.Logging.LogLevel.INFO)
     public Page<ProdDto.Response> getProducts(String productName, String productCode, 
                                                 Double minPrice, Double maxPrice, 
                                                 Pageable pageable) {
@@ -57,6 +58,7 @@ public class ProdService {
      * 상품 추가
      */
     @Transactional
+    @com.example.spm.global.annotation.Logging(level = com.example.spm.global.annotation.Logging.LogLevel.INFO)
     public ProdDto.Response createProduct(ProdDto.Request request) {
         log.info("상품 추가 - productCode: {}, productName: {}", request.getProductCode(), request.getProductName());
         
@@ -91,6 +93,7 @@ public class ProdService {
      * 상품 수정
      */
     @Transactional
+    @com.example.spm.global.annotation.Logging(level = com.example.spm.global.annotation.Logging.LogLevel.INFO)
     public ProdDto.Response updateProduct(Long productId, ProdDto.Request request) {
         log.info("상품 수정 - productId: {}, productName: {}", productId, request.getProductName());
         
@@ -115,6 +118,7 @@ public class ProdService {
      * 상품 삭제
      */
     @Transactional
+    @com.example.spm.global.annotation.Logging(level = com.example.spm.global.annotation.Logging.LogLevel.INFO)
     public void deleteProduct(Long productId) {
         log.info("상품 삭제 - productId: {}", productId);
         

@@ -14,7 +14,7 @@ export const ProductCard = ({ product, onClick }: ProductCardProps) => {
   return (
     <div
       className="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition-shadow"
-      onClick={() => onClick?.(product)}
+      onClick={() => onClick && onClick(product)}
     >
       <div className="flex justify-between items-start mb-2">
         <h3 className="text-lg font-semibold text-gray-900">{product.productName}</h3>
